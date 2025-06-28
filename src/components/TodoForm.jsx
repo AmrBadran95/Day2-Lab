@@ -10,36 +10,38 @@ export default function TodoForm() {
     e.preventDefault();
     try {
       await axios.post("/api/todo", { taskName, description });
-      window.location.reload(); // for now
+      setTaskName("");
+      setDescription("");
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block mb-1 text-sm font-medium">Task</label>
+        <label className="block text-sm font-medium mb-1">Task</label>
         <input
-          className="input"
           type="text"
-          placeholder="Task name"
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
-          required
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-cyan-500"
+          placeholder="Enter task"
         />
       </div>
       <div>
-        <label className="block mb-1 text-sm font-medium">Description</label>
+        <label className="block text-sm font-medium mb-1">Description</label>
         <input
-          className="input"
           type="text"
-          placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-cyan-500"
+          placeholder="Enter description"
         />
       </div>
-      <button type="submit" className="btn btn-primary w-full">
+      <button
+        type="submit"
+        className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-2 px-4 rounded-md">
         Add Task
       </button>
     </form>

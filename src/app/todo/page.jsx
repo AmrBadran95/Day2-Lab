@@ -4,20 +4,27 @@ import TodoForm from "@/components/TodoForm";
 
 export default async function TodoPage() {
   await connectDB();
-  const tasks = await Task.find({});
+  const tasks = await Task.find().lean();
   await disconnectDB();
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">Todo App</h1>
+    <div className="bg-white p-8 rounded-lg shadow-md space-y-6">
+      <h1 className="text-3xl font-bold text-cyan-600 text-center">Todo App</h1>
+
       <TodoForm />
-      <ul className="mt-6 space-y-2">
-        {tasks.map((task) => (
-          <li key={task._id} className="text-lg">
-            {task.taskName}
-          </li>
-        ))}
-      </ul>
+
+      <div>
+        <h2 className="text-xl font-semibold mt-8 mb-4">Your Tasks</h2>
+        {tasks.length === 0 ? (
+          <p className="text-gray-500">No tasks found.</p>
+        ) : (
+          <ul className="list-disc pl-5 space-y-1 text-gray-800">
+            {tasks.map((task) => (
+              <li key={task._id}>{task.taskName}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
