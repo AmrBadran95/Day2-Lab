@@ -18,7 +18,7 @@ export default function SignUpForm() {
         password,
       });
       console.log(res.data);
-      setError(""); // clear error on success
+      setError("");
     } catch (err) {
       if (err.response?.status === 409) {
         setError("User with this email already exists.");
